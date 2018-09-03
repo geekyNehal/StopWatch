@@ -4,22 +4,13 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -76,8 +67,6 @@ public class MainActivity extends AppCompatActivity
 
         //setting the toolbar as default toolbar
         setSupportActionBar(toolbar);
-        //Setting up drawerView
-        setupDrawerContent(nvDrawer);
 
         drawerLayout=findViewById(R.id.drawer_layout);
 
@@ -88,18 +77,6 @@ public class MainActivity extends AppCompatActivity
 
          //animating hamburger icon (changing its state whenever clicked)
         toggle.syncState();
-
-        RecyclerView navigation_recycler_view=findViewById(R.id.navigation_recycler_view);
-
-        //Setting up layout manager.
-        //Layout manager is responsible for positioning items in recycler view
-        LinearLayoutManager layoutManager=new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
-        navigation_recycler_view.setLayoutManager(layoutManager);
-
-        //Item animator is used to determine how the items changes will change when the adapter is changed.
-        DefaultItemAnimator itemAnimator=new DefaultItemAnimator();
-        navigation_recycler_view.setItemAnimator(itemAnimator);
-
 
         //Handling the click event of  Start buttons
         startButton.setOnClickListener(new View.OnClickListener() {
@@ -133,66 +110,12 @@ public class MainActivity extends AppCompatActivity
             }
         });
     }
-    //Setting up drawer in our activity.
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId())
-        {
-            case android.R.id.home:
-                drawerLayout.openDrawer(GravityCompat.START);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+
 
     @Override
     protected void onStart() {
         super.onStart();
     }
 
-    void setupDrawerContent(NavigationView navigationView)
-    {
-        navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                        selectDrawerItem(menuItem);
-                        return true;
-                    }
-                }
-        );
-    }
-    //Creating a new fragment and specify the fragment to show based on nav item clicked
-    public void selectDrawerItem(MenuItem menuItem)
-    {
-        Fragment fragment=null;
-        Class fragmentClass=null;
-        switch (menuItem.getItemId())
-        {
-            case R.layout.fragment_about_developer:
-                fragmentClass=AboutDeveloper.class;
-                break;
-        }
-        try
-        {
-            fragment=(Fragment) fragmentClass.newInstance();
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
 
-        //Inserting the fragment by replacing any existing fragment/
-        FragmentManager fragmentManager=getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.flContent,fragment).commit();
-
-        //Highlighting the selected item has been done by NavigationView
-        menuItem.setChecked(true);
-
-        //setting action bar title
-        setTitle(menuItem.getTitle());
-
-        //closing the navigation drawer
-        drawerLayout.closeDrawers();
-    }
 }
