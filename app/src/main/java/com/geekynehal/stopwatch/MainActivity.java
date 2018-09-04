@@ -20,7 +20,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity
 {
     DrawerLayout drawerLayout;
-    Button startButton,pauseButton,lapButton;
+    Button startPauseButton,resetButton,lapButton;
     TextView txtTimer;
     LinearLayout container;
     NavigationView nvDrawer;
@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity
     Handler customHandler=new Handler();
 
     long startTime=0L,timeinMilliseconds=0L,timeSwapBuff=0L,updateTime=0L;
+    boolean watchRunning=false;
 
     /*Since Updating the time at each milliseconds will take lot of processing,so we perform this task on a thread using
      Runnable(an Interface) and Handler*/
@@ -59,8 +60,8 @@ public class MainActivity extends AppCompatActivity
         //Here we are telling the compiler about the variable used which implies some id in the xml file through findViewById()
         Toolbar toolbar=findViewById(R.id.toolbar);
         nvDrawer=findViewById(R.id.nav_view);
-        startButton=findViewById(R.id.startButton);
-        pauseButton=findViewById(R.id.pauseButton);
+        startPauseButton=findViewById(R.id.startPauseButton);
+        resetButton=findViewById(R.id.resetButton);
         lapButton=findViewById(R.id.lapButton);
         txtTimer=findViewById(R.id.timer);
         container=findViewById(R.id.container);
@@ -79,21 +80,45 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         //Handling the click event of  Start buttons
-        startButton.setOnClickListener(new View.OnClickListener() {
+        startPauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //This initialises startTime in milliseconds.
-                startTime= SystemClock.uptimeMillis();
-                //Here the Handler is attached with the thread to deliver message to Runnable
-                customHandler.postDelayed(updateTimeThread,0);
+                if(!watchRunning) {
+                    //This initialises startTime in milliseconds.
+                    startTime = SystemClock.uptimeMillis();
+                    //Here the Handler is attached with the thread to deliver message to Runnable
+                    customHandler.postDelayed(updateTimeThread, 0);
+                    watchRunning=true;
+                    startPauseButton.setText("Pause");
+                    resetButton.setVisibility(View.INVISIBLE);
+                }
+                else
+                {
+                    timeSwapBuff+=timeinMilliseconds;
+                    //this will remove those runnables that have not yet begun processing from the queue.
+                    customHandler.removeCallbacks(updateTimeThread);
+                    startPauseButton.setText("Start");
+                    resetButton.setVisibility(View.VISIBLE);
+                    watchRunning=false;
+                }
             }
         });
-        pauseButton.setOnClickListener(new View.OnClickListener() {
+       resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                timeSwapBuff+=timeinMilliseconds;
-                //this will remove those runnables that have not yet begun processing from the queue.
-                customHandler.removeCallbacks(updateTimeThread);
+                if(!watchRunning) {
+                     timeinMilliseconds=timeSwapBuff=0L;
+                     updateTime=0L;
+                     startTime=SystemClock.uptimeMillis();
+                     customHandler.postDelayed(updateTimeThread,0);
+                    resetButton.setVisibility(View.INVISIBLE);
+                    startPauseButton.setText("Pause");
+                    watchRunning=true;
+                }
+                else
+                {
+
+                }
             }
         });
         lapButton.setOnClickListener(new View.OnClickListener() {
