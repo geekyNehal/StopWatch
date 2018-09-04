@@ -141,6 +141,16 @@ public class MainActivity extends AppCompatActivity
     protected void onStart() {
         super.onStart();
     }
-
-
+    @Override
+    public void onBackPressed()
+    {
+        if(drawerLayout.isDrawerOpen(nvDrawer))
+        {
+            drawerLayout.closeDrawers();
+        }
+        else
+        {
+            super.onBackPressed();
+        }
+    }
 }
