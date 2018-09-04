@@ -32,12 +32,6 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/navphoto"/>
         </RelativeLayout>
-            <android.support.v7.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/header"
-                android:id="@+id/navigation_recycler_view">
-            </android.support.v7.widget.RecyclerView>
         </RelativeLayout>
     </android.support.design.widget.NavigationView>
 </android.support.v4.widget.DrawerLayout>
