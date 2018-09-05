@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 if(!watchRunning) {
-
+                    finish();
                      startActivity(new Intent(MainActivity.this,MainActivity.class));
                      resetButton.setVisibility(View.INVISIBLE);
                      startPauseButton.setText("Pause");
