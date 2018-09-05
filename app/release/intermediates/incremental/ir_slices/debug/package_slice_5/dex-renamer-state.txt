@@ -1,4 +1,4 @@
-#Wed Sep 05 22:58:01 IST 2018
-base.0=F\:\\study\\StopWatch\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\23
+#Wed Sep 05 23:25:19 IST 2018
+base.0=F\:\\study\\StopWatch\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\40
 path.0=classes.dex
 renamed.0=classes.dex
