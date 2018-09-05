@@ -112,7 +112,6 @@ public class MainActivity extends AppCompatActivity
                      updateTime=0L;
                      startTime=SystemClock.uptimeMillis();
                      customHandler.postDelayed(updateTimeThread,0);
-
                      resetButton.setVisibility(View.INVISIBLE);
                      startPauseButton.setText("Pause");
                      watchRunning=true;
