@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity
     TextView txtTimer;
     LinearLayout container;
     NavigationView nvDrawer;
-
     //Handler is used to perform a task.
     Handler customHandler=new Handler();
 
@@ -111,9 +110,10 @@ public class MainActivity extends AppCompatActivity
                      updateTime=0L;
                      startTime=SystemClock.uptimeMillis();
                      customHandler.postDelayed(updateTimeThread,0);
-                    resetButton.setVisibility(View.INVISIBLE);
-                    startPauseButton.setText("Pause");
-                    watchRunning=true;
+
+                     resetButton.setVisibility(View.INVISIBLE);
+                     startPauseButton.setText("Pause");
+                     watchRunning=true;
                 }
                 else
                 {
