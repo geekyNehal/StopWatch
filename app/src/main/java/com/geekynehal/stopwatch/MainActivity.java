@@ -90,6 +90,7 @@ public class MainActivity extends AppCompatActivity
                     watchRunning=true;
                     startPauseButton.setText("Pause");
                     resetButton.setVisibility(View.INVISIBLE);
+                    lapButton.setVisibility(View.VISIBLE);
                 }
                 else
                 {
@@ -99,6 +100,7 @@ public class MainActivity extends AppCompatActivity
                     startPauseButton.setText("Start");
                     resetButton.setVisibility(View.VISIBLE);
                     watchRunning=false;
+                    lapButton.setVisibility(View.INVISIBLE);
                 }
             }
         });
@@ -114,6 +116,7 @@ public class MainActivity extends AppCompatActivity
                      resetButton.setVisibility(View.INVISIBLE);
                      startPauseButton.setText("Pause");
                      watchRunning=true;
+                     lapButton.setVisibility(View.VISIBLE);
                 }
                 else
                 {
