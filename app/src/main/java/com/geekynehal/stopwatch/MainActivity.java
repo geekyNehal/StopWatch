@@ -1,6 +1,7 @@
 package com.geekynehal.stopwatch;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -108,10 +109,8 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 if(!watchRunning) {
-                     timeinMilliseconds=timeSwapBuff=0L;
-                     updateTime=0L;
-                     startTime=SystemClock.uptimeMillis();
-                     customHandler.postDelayed(updateTimeThread,0);
+
+                     startActivity(new Intent(MainActivity.this,MainActivity.class));
                      resetButton.setVisibility(View.INVISIBLE);
                      startPauseButton.setText("Pause");
                      watchRunning=true;
