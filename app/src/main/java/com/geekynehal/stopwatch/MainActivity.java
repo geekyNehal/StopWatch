@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import at.grabner.circleprogress.CircleProgressView;
+import at.grabner.circleprogress.TextMode;
 
 
 public class MainActivity extends AppCompatActivity
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity
 
     long startTime=0L,timeinMilliseconds=0L,timeSwapBuff=0L,updateTime=0L;
     boolean watchRunning=false;
+    int min=0;
 
     /*Since Updating the time at each milliseconds will take lot of processing,so we perform this task on a thread using
      Runnable(an Interface) and Handler*/
@@ -43,9 +45,16 @@ public class MainActivity extends AppCompatActivity
             //Runnable Interface requires of the class to implement this method.
             timeinMilliseconds=SystemClock.uptimeMillis()-startTime;
             updateTime=timeSwapBuff+timeinMilliseconds;
-            //updateTime is in milliseconds so we divide it with 1000 to ge  t in seconds.
+            //updateTime is in milliseconds so we divide it with 1000 to get in seconds.
             int secs=(int) (updateTime/1000);
-            int min=secs/60;
+            if(secs%60==0&&secs!=0)
+            {
+                min++;
+            }
+            if(secs>=60)
+            {
+                secs=secs%60;
+            }
             int milliseconds=(int) (updateTime%1000);
             //The %d is used for formatting the time string as 00:01:454 so that it appears like time.
             circleProgressView.setValue(secs);
@@ -83,6 +92,8 @@ public class MainActivity extends AppCompatActivity
 
          //animating hamburger icon (changing its state whenever clicked)
         toggle.syncState();
+
+        circleProgressView.setTextMode(TextMode.VALUE);
 
         //Handling the click event of  Start buttons
         startPauseButton.setOnClickListener(new View.OnClickListener() {

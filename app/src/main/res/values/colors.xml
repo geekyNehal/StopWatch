@@ -3,4 +3,5 @@
     <color name="colorPrimary">#CC1111</color>
     <color name="colorPrimaryDark">#CC1111</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="circleProgressViewTextColor">#000000</color>
 </resources>
