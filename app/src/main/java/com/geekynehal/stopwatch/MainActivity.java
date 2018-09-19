@@ -17,6 +17,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import at.grabner.circleprogress.CircleProgressView;
+
 
 public class MainActivity extends AppCompatActivity
 {
@@ -25,6 +27,7 @@ public class MainActivity extends AppCompatActivity
     TextView txtTimer;
     LinearLayout container;
     NavigationView nvDrawer;
+    CircleProgressView circleProgressView;
     //Handler is used to perform a task.
     Handler customHandler=new Handler();
 
@@ -40,11 +43,12 @@ public class MainActivity extends AppCompatActivity
             //Runnable Interface requires of the class to implement this method.
             timeinMilliseconds=SystemClock.uptimeMillis()-startTime;
             updateTime=timeSwapBuff+timeinMilliseconds;
-            //updateTime is in milliseconds so we divide it with 1000 to get in seconds.
+            //updateTime is in milliseconds so we divide it with 1000 to ge  t in seconds.
             int secs=(int) (updateTime/1000);
             int min=secs/60;
             int milliseconds=(int) (updateTime%1000);
             //The %d is used for formatting the time string as 00:01:454 so that it appears like time.
+            circleProgressView.setValue(secs);
             txtTimer.setText(""+min+":"+String.format("%02d",secs)+":"+String.format("%03d",milliseconds));
             customHandler.postDelayed(this,0);
         }
@@ -65,6 +69,7 @@ public class MainActivity extends AppCompatActivity
         lapButton=findViewById(R.id.lapButton);
         txtTimer=findViewById(R.id.timer);
         container=findViewById(R.id.container);
+        circleProgressView=findViewById(R.id.circleProgressView);
 
         //setting the toolbar as default toolbar
         setSupportActionBar(toolbar);
@@ -118,7 +123,7 @@ public class MainActivity extends AppCompatActivity
                 }
                 else
                 {
-
+                    //TODO
                 }
             }
         });

@@ -10,5 +10,6 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text=" "
         android:id="@+id/textcontent"
-        android:layout_margin="5dp"/>
+        android:layout_margin="5dp"
+        android:layout_gravity="center"/>
 </LinearLayout>
