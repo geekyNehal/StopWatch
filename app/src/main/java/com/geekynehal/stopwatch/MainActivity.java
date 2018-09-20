@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity
     long startTime=0L,timeinMilliseconds=0L,timeSwapBuff=0L,updateTime=0L;
     boolean watchRunning=false;
     int min=0;
+   
 
     /*Since Updating the time at each milliseconds will take lot of processing,so we perform this task on a thread using
      Runnable(an Interface) and Handler*/
@@ -47,14 +48,11 @@ public class MainActivity extends AppCompatActivity
             updateTime=timeSwapBuff+timeinMilliseconds;
             //updateTime is in milliseconds so we divide it with 1000 to get in seconds.
             int secs=(int) (updateTime/1000);
-            if(secs%60==0&&secs!=0)
-            {
-                min++;
-            }
-            if(secs>=60)
-            {
-                secs=secs%60;
-            }
+
+            min = secs / 60;
+
+            secs = secs % 60;
+
             int milliseconds=(int) (updateTime%1000);
             //The %d is used for formatting the time string as 00:01:454 so that it appears like time.
             circleProgressView.setValue(secs);
@@ -77,6 +75,7 @@ public class MainActivity extends AppCompatActivity
         resetButton=findViewById(R.id.resetButton);
         lapButton=findViewById(R.id.lapButton);
         txtTimer=findViewById(R.id.timer);
+
         container=findViewById(R.id.container);
         circleProgressView=findViewById(R.id.circleProgressView);
 
@@ -124,31 +123,40 @@ public class MainActivity extends AppCompatActivity
        resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!watchRunning) {
-                    finish();
-                     startActivity(new Intent(MainActivity.this,MainActivity.class));
-                     resetButton.setVisibility(View.INVISIBLE);
-                     startPauseButton.setText("Pause");
-                     watchRunning=true;
+                     startTime=0L;
+
+                     timeinMilliseconds=0L;
+
+                     timeSwapBuff=0L;
+
+                     updateTime=0L;
+
+                     watchRunning=false;
+
+                     txtTimer.setText("00:00:00");
+
                      lapButton.setVisibility(View.VISIBLE);
-                }
-                else
-                {
-                    //TODO
-                }
+
+                     container.removeAllViews();
+
             }
         });
         lapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+               
                 /*LayoutInflater is a class used to instantiate xml file into view object.Here we used inflater to show all the laps
                 through row (a xml file) to the view*/
                 LayoutInflater inflater=(LayoutInflater)getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 //Inflate gives us object references  to that layout to call findViewById on.
                 View addView=inflater.inflate(R.layout.row,null);
                 TextView txtValue=addView.findViewById(R.id.textcontent);
+                TextView lap=addView.findViewById(R.id.lap);
                 txtValue.setText(txtTimer.getText());
+
                 container.addView(addView);
+
+
             }
         });
     }
