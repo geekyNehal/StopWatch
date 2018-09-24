@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import at.grabner.circleprogress.CircleProgressView;
 import at.grabner.circleprogress.TextMode;
@@ -99,6 +100,8 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 if(!watchRunning) {
+                    //Toast message indicating stop watch started
+                    Toast.makeText(MainActivity.this,"Stop Watch Started",Toast.LENGTH_SHORT).show();
                     //This initialises startTime in milliseconds.
                     startTime = SystemClock.uptimeMillis();
                     //Here the Handler is attached with the thread to deliver message to Runnable
@@ -123,35 +126,29 @@ public class MainActivity extends AppCompatActivity
        resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                     Toast.makeText(MainActivity.this,"Restarted View",Toast.LENGTH_SHORT).show();
                      startTime=0L;
-
                      timeinMilliseconds=0L;
-
                      timeSwapBuff=0L;
-
                      updateTime=0L;
-
                      watchRunning=false;
-
                      txtTimer.setText("00:00:00");
-
                      lapButton.setVisibility(View.VISIBLE);
-
                      container.removeAllViews();
+                     circleProgressView.setValue(0);
+                     resetButton.setVisibility(View.INVISIBLE);
 
             }
         });
         lapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               
                 /*LayoutInflater is a class used to instantiate xml file into view object.Here we used inflater to show all the laps
                 through row (a xml file) to the view*/
                 LayoutInflater inflater=(LayoutInflater)getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 //Inflate gives us object references  to that layout to call findViewById on.
                 View addView=inflater.inflate(R.layout.row,null);
                 TextView txtValue=addView.findViewById(R.id.textcontent);
-                TextView lap=addView.findViewById(R.id.lap);
                 txtValue.setText(txtTimer.getText());
 
                 container.addView(addView);
