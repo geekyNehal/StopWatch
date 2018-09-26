@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/developer_image"
+        android:background="@drawable/dev_photo"
+        android:layout_margin="20dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="HELLO CODERS! THIS IS NEHAL. HOPE YOU LIKE MY APP. STAY TUNED FOR FURTHER UPDATES. APP VERSION 1.0(ALPHA)"
+        android:layout_below="@id/developer_image"
+        android:layout_margin="10dp"/>
+</RelativeLayout>
