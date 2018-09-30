@@ -145,10 +145,9 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                
-                /*LayoutInflater is a class used to instantiate xml file into view object.Here we used inflater to show all the laps
-                through row (a xml file) to the view*/
+              
                 LayoutInflater inflater=(LayoutInflater)getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                //Inflate gives us object references  to that layout to call findViewById on.
+                
                 View addView=inflater.inflate(R.layout.row,null);
                 TextView txtValue=addView.findViewById(R.id.textcontent);
                 TextView lap=addView.findViewById(R.id.lap);
