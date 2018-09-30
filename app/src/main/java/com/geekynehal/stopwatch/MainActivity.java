@@ -2,26 +2,31 @@ package com.geekynehal.stopwatch;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import at.grabner.circleprogress.CircleProgressView;
 import at.grabner.circleprogress.TextMode;
 
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
 {
     DrawerLayout drawerLayout;
     Button startPauseButton,resetButton,lapButton;
@@ -92,6 +97,9 @@ public class MainActivity extends AppCompatActivity
          //animating hamburger icon (changing its state whenever clicked)
         toggle.syncState();
 
+        //Click event of any element of Navigation Drawer
+        nvDrawer.setNavigationItemSelectedListener(this);
+
         circleProgressView.setTextMode(TextMode.VALUE);
 
         //Handling the click event of  Start buttons
@@ -99,6 +107,8 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 if(!watchRunning) {
+                    //Toast message indicating stop watch started
+                    Toast.makeText(MainActivity.this,"Stop Watch Started",Toast.LENGTH_SHORT).show();
                     //This initialises startTime in milliseconds.
                     startTime = SystemClock.uptimeMillis();
                     //Here the Handler is attached with the thread to deliver message to Runnable
@@ -110,6 +120,7 @@ public class MainActivity extends AppCompatActivity
                 }
                 else
                 {
+                    Toast.makeText(MainActivity.this,"Stop Watch Stopped",Toast.LENGTH_SHORT).show();
                     timeSwapBuff+=timeinMilliseconds;
                     //this will remove those runnables that have not yet begun processing from the queue.
                     customHandler.removeCallbacks(updateTimeThread);
@@ -123,34 +134,28 @@ public class MainActivity extends AppCompatActivity
        resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                     Toast.makeText(MainActivity.this,"Restarted View",Toast.LENGTH_SHORT).show();
                      startTime=0L;
-
                      timeinMilliseconds=0L;
-
                      timeSwapBuff=0L;
-
                      updateTime=0L;
-
                      watchRunning=false;
-
                      txtTimer.setText("00:00:00");
-
                      lapButton.setVisibility(View.VISIBLE);
-
                      container.removeAllViews();
+                     circleProgressView.setValue(0);
+                     resetButton.setVisibility(View.INVISIBLE);
 
             }
         });
         lapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               
-              
+
                 LayoutInflater inflater=(LayoutInflater)getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 
                 View addView=inflater.inflate(R.layout.row,null);
                 TextView txtValue=addView.findViewById(R.id.textcontent);
-                TextView lap=addView.findViewById(R.id.lap);
                 txtValue.setText(txtTimer.getText());
 
                 container.addView(addView);
@@ -176,5 +181,24 @@ public class MainActivity extends AppCompatActivity
         {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId())
+        {
+            case R.id.developer:
+                //getSupportFragmentManager().beginTransaction()
+                  //      .replace(R.id.frame,new AboutDeveloper())
+                    //    .addToBackStack(null).commitAllowingStateLoss();
+                break;
+            case R.id.source:
+                Intent viewIntent =
+                        new Intent("android.intent.action.VIEW",
+                                Uri.parse("https://github.com/geekyNehal/StopWatch"));
+                startActivity(viewIntent);
+        }
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
     }
 }

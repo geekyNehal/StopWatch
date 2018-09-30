@@ -8,7 +8,8 @@
     tools:context=".MainActivity">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:id="@+id/rview">
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,6 +23,7 @@
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
     </android.support.design.widget.AppBarLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -33,6 +35,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:id="@+id/circleProgressView"
+                android:clickable="false"
                 CircleProgressView:cpv_value="0.0"
                 CircleProgressView:cpv_maxValue="59"
                 CircleProgressView:cpv_barColor="@color/colorPrimary"
@@ -47,7 +50,7 @@
                 CircleProgressView:cpv_autoTextSize="true"
                 CircleProgressView:cpv_textColor="@color/colorPrimary"
                 CircleProgressView:cpv_unitColor="@color/colorPrimary"
-                CircleProgressView:cpv_seekMode="true"
+                CircleProgressView:cpv_seekMode="false"
                 CircleProgressView:cpv_unit="sec"
                 CircleProgressView:cpv_unitPosition="right_top"
                 CircleProgressView:cpv_unitScale="1"
